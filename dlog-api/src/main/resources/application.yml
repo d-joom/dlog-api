@@ -1,9 +1,0 @@
-server:
-  port: 8080
-spring:
-#  config:
-#    import: optional:configserver:http://54.81.247.178:8081 # import:optional:configserver사용 -> Spring cloud config server 주소 
-#  application:
-#    name: dlog
-#  profiles:
-#    active: local #환경 선택

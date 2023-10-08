@@ -88,7 +88,6 @@ public class UserController {
         
         List<User> users = userService.getUsers(searchKeyword);
         
-        System.out.println();
         return responseService.getListResult(users);
 	}
 	
