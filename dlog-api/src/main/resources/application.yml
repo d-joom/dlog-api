@@ -7,15 +7,3 @@ spring:
 #    name: dlog
 #  profiles:
 #    active: local #환경 선택
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dlog
-    username: jumin
-    password: wbakswlDlog10!
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: trace
