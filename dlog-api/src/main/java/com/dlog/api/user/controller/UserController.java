@@ -1,12 +1,11 @@
 package com.dlog.api.user.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +17,9 @@ import com.dlog.api.model.response.CommonResult;
 import com.dlog.api.model.response.ListResult;
 import com.dlog.api.model.response.SingleResult;
 import com.dlog.api.service.ResponseService;
-import com.dlog.api.user.Dto.CreateUserDto;
+import com.dlog.api.user.Dto.UserDto;
 import com.dlog.api.user.model.User;
+import com.dlog.api.user.repository.UserRepository;
 import com.dlog.api.user.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -35,9 +35,7 @@ public class UserController {
 	
 	private final UserService userService;
 	private final ResponseService responseService;
-	
-	@Value("${spring.datasource.username}")
-	private static String DATASOURCE_USERNAME;
+	private final UserRepository userRepository;	
 
 	@ApiOperation(value = "회원 specification 조회", notes = "회원 specification 조회")
 	@GetMapping("/users")
@@ -86,20 +84,19 @@ public class UserController {
 			searchKeyword.put("isDeleted", isDeleted);
         }
         
-        List<User> users = userService.getUsers(searchKeyword);
+        return userService.getUsers(searchKeyword);
         
-        return responseService.getListResult(users);
 	}
 	
 	@ApiOperation(value = "회원 단일 조회", notes = "회원 단일 조회")
 	@GetMapping("/user/{uuid}")
 	public SingleResult<User> getUserByUuid(@PathVariable String uuid) {
-		return null;
+		return responseService.getSingleResult(userRepository.findByUuid(uuid).orElse(null));
 	}
 	
 	@ApiOperation(value = "회원 생성", notes = "회원 생성")
 	@PostMapping("/user")
-	public CommonResult addUser(@RequestBody CreateUserDto dto) {
+	public CommonResult addUser(@RequestBody UserDto dto) {
 		String result = userService.addUser(dto);
 		
 		if(result.equals("200")) {
@@ -110,8 +107,11 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "회원 수정", notes = "회원 수정")
-	@PutMapping("/user")
-	public CommonResult modifyUser() {
+	@PutMapping("/user/{uuid}")
+	public CommonResult modifyUser(
+			@PathVariable String uuid,
+			@RequestBody UserDto dto) {
+		userService.modifyUser(uuid, dto);
 		return null;
 	}
 	
@@ -119,6 +119,11 @@ public class UserController {
 	@DeleteMapping("/user/{uuid}")
 	public CommonResult deleteUser() {
 		return null;
+	}
+	
+	@ExceptionHandler(NullPointerException.class)
+	public String nullException(Exception e) {
+		return "null exception";
 	}
 	
 }
