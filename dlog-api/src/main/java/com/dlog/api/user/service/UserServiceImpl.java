@@ -5,26 +5,26 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dlog.api.config.ApplicationConfig;
 import com.dlog.api.model.response.ListResult;
 import com.dlog.api.user.Dto.LoginDto;
 import com.dlog.api.user.Dto.UserDto;
-import com.dlog.api.user.mapper.UserMapper;
 import com.dlog.api.user.model.User;
 import com.dlog.api.user.repository.UserRepository;
 import com.dlog.api.user.specification.UserSpecs;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service("userService")
 public class UserServiceImpl implements UserService {
 	
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
-	@Autowired
-	ModelMapper modelMapper;
+//	private final UserMapper userMapper;
+	
+	private final ModelMapper modelMapper;
 
 	@Override
 	public User login(LoginDto dto) {
@@ -84,16 +84,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String modifyUser(String uuid, UserDto dto) {
 		
-		User user = userRepository.findByUuid(uuid).orElse(null);
-		
-		if(user == null) {
-			return "유효하지 않은 user rowId 입니다."; 
-		} else {
-//			User result = userRepository.save(UserMapper.INSTANCE.toEntity(dto));
-//			User result = modelMapper.map(dto, User.class);
-			User result = UserMapper.INSTANCE.toEntity(dto);
-			userRepository.save(result);
+		try {
+			User user = userRepository.findByUuid(uuid).orElse(null);
+			
+			if(user == null) {
+				return "유효하지 않은 user rowId 입니다."; 
+			} else {
+				User result = modelMapper.map(dto, User.class);
+				modelMapper.map(result, user);
+				
+				userRepository.save(user);
+			}
+		} catch(Exception e) {
+			System.out.println("ERROR --- " + e.getMessage());
 		}
+
 		return null;
 	}
 }
