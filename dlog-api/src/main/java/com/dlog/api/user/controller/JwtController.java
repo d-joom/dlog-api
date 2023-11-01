@@ -51,11 +51,11 @@ public class JwtController {
         }
 
         // 로그인 성공 => Jwt Token 발급
-        String secretKey = "my-secret-key-123123";
+        String secretKey = "dlog-secretkey";
         long expireTimeMs = 1000 * 60 * 60;     // Token 유효 시간 = 60분
 
-        String jwtToken = JwtTokenUtil.createToken(user.getUserId(), secretKey, expireTimeMs);
-        System.out.println(jwtToken);
+        String jwtToken = JwtTokenUtil.createToken(user, secretKey, expireTimeMs);
+        System.out.println("token : " + jwtToken);
 
         return jwtToken;
     }

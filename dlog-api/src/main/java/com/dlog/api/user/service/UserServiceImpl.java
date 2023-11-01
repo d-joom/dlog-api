@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.dlog.api.model.response.ListResult;
 import com.dlog.api.user.Dto.LoginDto;
 import com.dlog.api.user.Dto.UserDto;
+import com.dlog.api.user.Dto.UserInfoDto;
 import com.dlog.api.user.model.User;
 import com.dlog.api.user.repository.UserRepository;
 import com.dlog.api.user.specification.UserSpecs;
+import com.dlog.api.utils.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,10 +24,8 @@ public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository;
 	
-//	private final UserMapper userMapper;
-	
 	private final ModelMapper modelMapper;
-
+	
 	@Override
 	public User login(LoginDto dto) {
 		User user = userRepository.findByUserIdAndIsDeletedFalse(dto.getUserId()).orElse(null);
@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ListResult<User> getUsers(Map<String, Object> keyword) {
+	public ListResult<User> getUsers(String token, Map<String, Object> keyword) {
+		
 		ListResult<User> result = new ListResult<>();
 		try {
 			List<User> users = userRepository.findAll(UserSpecs.searchWith(keyword));
@@ -100,5 +101,28 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public String deleteUser(String token, String uuid) {
+		
+		try {
+			User user = userRepository.findByUuid(uuid).orElse(null);
+			UserInfoDto info = JwtTokenUtil.getUserInfo(token.replace("Bearer ", ""));
+			
+			if(user == null) {
+				return "유효하지 않은 user rowId 입니다."; 
+			} else {
+				if (!user.getRowId().equals(info.getRowId())) {
+					return "삭제할 권한이 없습니다.";
+				}
+				user.setIsDeleted(true);
+				userRepository.save(user);
+			}
+		} catch(Exception e) {
+			System.out.println("ERROR --- " + e.getMessage());
+		}
+
+		return "200";
 	}
 }

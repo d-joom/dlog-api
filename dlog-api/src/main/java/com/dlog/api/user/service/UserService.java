@@ -13,10 +13,12 @@ public interface UserService {
 	
 	public User getUserByUserId(String userId);
 
-	public ListResult<User> getUsers(Map<String, Object> keyword);
+	public ListResult<User> getUsers(String token, Map<String, Object> keyword);
 	
 	public String addUser(UserDto dto);
 	
 	public String modifyUser(String uuid, UserDto dto);
+	
+	public String deleteUser(String token, String uuid);
 	
 }

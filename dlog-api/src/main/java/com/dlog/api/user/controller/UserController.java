@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +40,8 @@ public class UserController {
 
 	@ApiOperation(value = "회원 specification 조회", notes = "회원 specification 조회")
 	@GetMapping("/users")
-	public ListResult<User> getUsers(@RequestParam(required = false, defaultValue = "0") long rowId,
+	public ListResult<User> getUsers(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@RequestParam(required = false, defaultValue = "0") long rowId,
             @RequestParam(required = false) String uuid,
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String password,
@@ -84,13 +86,14 @@ public class UserController {
 			searchKeyword.put("isDeleted", isDeleted);
         }
         
-        return userService.getUsers(searchKeyword);
+        return userService.getUsers(token, searchKeyword);
         
 	}
 	
 	@ApiOperation(value = "회원 단일 조회", notes = "회원 단일 조회")
 	@GetMapping("/user/{uuid}")
-	public SingleResult<User> getUserByUuid(@PathVariable String uuid) {
+	public SingleResult<User> getUserByUuid(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String uuid) {
 		return responseService.getSingleResult(userRepository.findByUuid(uuid).orElse(null));
 	}
 	
@@ -117,7 +120,9 @@ public class UserController {
 	
 	@ApiOperation(value = "회원 삭제", notes = "회원 삭제")
 	@DeleteMapping("/user/{uuid}")
-	public CommonResult deleteUser() {
+	public CommonResult deleteUser(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String uuid) {
+		userService.deleteUser(token, uuid);
 		return null;
 	}
 	
