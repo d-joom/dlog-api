@@ -128,6 +128,7 @@ public class UserController {
 	
 	@ExceptionHandler(NullPointerException.class)
 	public String nullException(Exception e) {
+		
 		return "null exception";
 	}
 	
