@@ -1,4 +1,4 @@
-package com.dlog.api.user.controller;
+package com.dlog.api.controller.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dlog.api.dto.UserDto;
 import com.dlog.api.model.response.CommonResult;
 import com.dlog.api.model.response.ListResult;
 import com.dlog.api.model.response.SingleResult;
+import com.dlog.api.model.user.User;
+import com.dlog.api.repository.user.UserRepository;
 import com.dlog.api.service.ResponseService;
-import com.dlog.api.user.Dto.UserDto;
-import com.dlog.api.user.model.User;
-import com.dlog.api.user.repository.UserRepository;
-import com.dlog.api.user.service.UserService;
+import com.dlog.api.service.user.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

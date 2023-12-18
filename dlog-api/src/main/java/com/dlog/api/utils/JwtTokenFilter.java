@@ -15,8 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.dlog.api.user.model.User;
-import com.dlog.api.user.service.UserService;
+import com.dlog.api.model.user.User;
+import com.dlog.api.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 

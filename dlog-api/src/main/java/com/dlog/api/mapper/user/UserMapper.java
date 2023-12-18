@@ -1,4 +1,4 @@
-package com.dlog.api.user.mapper;
+package com.dlog.api.mapper.user;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -6,8 +6,8 @@ import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
-import com.dlog.api.user.Dto.UserDto;
-import com.dlog.api.user.model.User;
+import com.dlog.api.dto.UserDto;
+import com.dlog.api.model.user.User;
 
 @Mapper(componentModel = "spring", uses = {},
 nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT,

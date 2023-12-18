@@ -1,4 +1,4 @@
-package com.dlog.api.user.Dto;
+package com.dlog.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

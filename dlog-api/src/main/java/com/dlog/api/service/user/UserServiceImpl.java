@@ -1,4 +1,4 @@
-package com.dlog.api.user.service;
+package com.dlog.api.service.user;
 
 import java.util.List;
 import java.util.Map;
@@ -7,13 +7,13 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.dlog.api.dto.LoginDto;
+import com.dlog.api.dto.UserDto;
+import com.dlog.api.dto.UserInfoDto;
 import com.dlog.api.model.response.ListResult;
-import com.dlog.api.user.Dto.LoginDto;
-import com.dlog.api.user.Dto.UserDto;
-import com.dlog.api.user.Dto.UserInfoDto;
-import com.dlog.api.user.model.User;
-import com.dlog.api.user.repository.UserRepository;
-import com.dlog.api.user.specification.UserSpecs;
+import com.dlog.api.model.user.User;
+import com.dlog.api.repository.user.UserRepository;
+import com.dlog.api.specification.user.UserSpecs;
 import com.dlog.api.utils.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;

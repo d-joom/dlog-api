@@ -24,7 +24,7 @@ public class SwaggerConfig implements WebMvcConfigurer{
     @Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.dlog.api.user"))
+				.apis(RequestHandlerSelectors.basePackage("com.dlog.api"))
 				.paths(PathSelectors.any())
 				.build();
 	}

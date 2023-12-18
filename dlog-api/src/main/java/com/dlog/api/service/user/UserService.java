@@ -1,11 +1,11 @@
-package com.dlog.api.user.service;
+package com.dlog.api.service.user;
 
 import java.util.Map;
 
+import com.dlog.api.dto.LoginDto;
+import com.dlog.api.dto.UserDto;
 import com.dlog.api.model.response.ListResult;
-import com.dlog.api.user.Dto.LoginDto;
-import com.dlog.api.user.Dto.UserDto;
-import com.dlog.api.user.model.User;
+import com.dlog.api.model.user.User;
 
 public interface UserService {
 	

@@ -1,4 +1,4 @@
-package com.dlog.api.user.specification;
+package com.dlog.api.specification.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,18 +10,18 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.dlog.api.user.model.UserBlog;
+import com.dlog.api.model.user.User;
 
-public class UserBlogCategorySpecs {
+public class UserSpecs {
 	
-	public static Specification<UserBlog> searchWith(Map<String, Object> searchKeyword) {
-        return (Specification<UserBlog>) ((root, query, builder) -> {
+	public static Specification<User> searchWith(Map<String, Object> searchKeyword) {
+        return (Specification<User>) ((root, query, builder) -> {
             List<Predicate> predicate = getPredicateWithKeyword(searchKeyword, root, builder);
             return builder.and(predicate.toArray(new Predicate[0]));
         });
     }
 	
-	private static List<Predicate> getPredicateWithKeyword(Map<String, Object> searchKeyword, Root<UserBlog> root, CriteriaBuilder builder) {
+	private static List<Predicate> getPredicateWithKeyword(Map<String, Object> searchKeyword, Root<User> root, CriteriaBuilder builder) {
         List<Predicate> predicate = new ArrayList<>();
         for (String key : searchKeyword.keySet()) {
         	predicate.add(builder.equal(root.get(key), searchKeyword.get(key)));

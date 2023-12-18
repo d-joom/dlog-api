@@ -1,12 +1,12 @@
-package com.dlog.api.user.controller;
+package com.dlog.api.controller.user;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dlog.api.user.Dto.LoginDto;
-import com.dlog.api.user.model.User;
-import com.dlog.api.user.service.UserService;
+import com.dlog.api.dto.LoginDto;
+import com.dlog.api.model.user.User;
+import com.dlog.api.service.user.UserService;
 import com.dlog.api.utils.JwtTokenUtil;
 
 import io.swagger.annotations.Api;
@@ -47,7 +47,7 @@ public class JwtController {
 
         // 로그인 아이디나 비밀번호가 틀린 경우 global error return
         if(user == null) {
-            return"로그인 아이디 또는 비밀번호가 틀렸습니다.";
+            return "failed";
         }
 
         // 로그인 성공 => Jwt Token 발급

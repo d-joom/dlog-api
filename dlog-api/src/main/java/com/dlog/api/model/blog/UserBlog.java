@@ -1,7 +1,6 @@
-package com.dlog.api.user.model;
+package com.dlog.api.model.blog;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,11 +18,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "user_blogs")
+public class UserBlog {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "row_id")
 	private Long rowId;
 	
@@ -33,32 +32,20 @@ public class User {
 	@Column(name = "user_id")
 	private String userId;
 	
-	@Column(name = "password")
-	private String password;
-	
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "nick_name")
-	private String nickNmae;
+	@Column(name = "description")
+	private String description;
 	
-	@Column(name = "picture")
-	private String picture;
+	@Column(name = "theme")
+	private String theme;
 	
-	@Column(name = "email")
-	private String email;
+	@Column(name = "pavicon")
+	private String pavicon;
 	
-	@Column(name = "mobile")
-	private String mobile;
-	
-	@Column(name = "gender")
-	private String gender;
-	
-	@Column(name = "password_last_modify_time_at")
-	private Date passwordLastModifyTimeAt;
-	
-	@Column(name = "last_used_time_at")
-	private Date lastUsedTimeAt;
+	@Column(name = "created_by")
+	private String createdBy;
 	
 	@Column(name = "updated_by")
 	private String updatedBy;

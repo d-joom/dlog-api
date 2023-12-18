@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.springframework.context.annotation.Configuration;
 
-import com.dlog.api.user.Dto.UserInfoDto;
-import com.dlog.api.user.model.User;
+import com.dlog.api.dto.UserInfoDto;
+import com.dlog.api.model.user.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +23,7 @@ public class JwtTokenUtil {
         Claims claims = Jwts.claims();
         claims.put("userId", user.getUserId());
         claims.put("email", user.getEmail());
-        claims.put("rowId", user.getRowId());
+        claims.put("rowNumber", user.getRowId());
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -53,7 +53,7 @@ public class JwtTokenUtil {
     	UserInfoDto dto = new UserInfoDto();
     	dto.setUserId(claim.get("userId").toString());
     	dto.setEmail(claim.get("email").toString());
-    	dto.setRowId(Long.parseLong(claim.get("rowId").toString()));
+    	dto.setRowId(Long.parseLong(claim.get("rowNumber").toString()));
     	return dto;
     }
    
