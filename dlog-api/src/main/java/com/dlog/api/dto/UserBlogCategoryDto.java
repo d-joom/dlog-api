@@ -13,8 +13,8 @@ public class UserBlogCategoryDto {
 	
 	private String description;
 	
-	private long depth;
+	private Long depth;
 	
-	private String parentId;
+	private Long parentId;
 	
 }

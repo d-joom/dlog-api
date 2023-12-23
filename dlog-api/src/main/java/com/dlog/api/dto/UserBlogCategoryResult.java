@@ -1,6 +1,9 @@
 package com.dlog.api.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.dlog.api.model.blog.UserBlogCategory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,11 +12,18 @@ import lombok.Setter;
 @Setter
 public class UserBlogCategoryResult {
 	
-	private long row_number;
+	private long rowId;
 
     private String name;
 
-    private int listOrder;
+    private long listOrder;
 
     private List<UserBlogCategoryResult> children;
+    
+    public UserBlogCategoryResult(final UserBlogCategory userBlogCategory) {
+        this.rowId = userBlogCategory.getRowId();
+        this.name = userBlogCategory.getName();
+        this.listOrder = userBlogCategory.getListOrder();
+        this.children = userBlogCategory.getChildren().stream().map(UserBlogCategoryResult::new).collect(Collectors.toList());
+    }
 }

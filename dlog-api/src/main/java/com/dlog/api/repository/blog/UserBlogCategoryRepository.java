@@ -10,7 +10,8 @@ import com.dlog.api.model.blog.UserBlogCategory;
 public interface UserBlogCategoryRepository
 		extends JpaRepository<UserBlogCategory, Long>, JpaSpecificationExecutor<UserBlogCategory> {
 
+	Optional<UserBlogCategory> findByRowId(Long rowId);
+	
 	Optional<UserBlogCategory> findByUuid(String uuid);
 	
-
 }

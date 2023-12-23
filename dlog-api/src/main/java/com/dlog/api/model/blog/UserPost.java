@@ -23,7 +23,7 @@ import lombok.Setter;
 public class UserPost {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "row_id")
 	private Long rowId;
 	
@@ -39,7 +39,7 @@ public class UserPost {
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "contents")
+	@Column(name = "contents", columnDefinition = "TEXT")
 	private String contents;
 	
 	@Column(name = "is_temporary")

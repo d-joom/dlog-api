@@ -22,7 +22,7 @@ import lombok.Setter;
 public class UserBlog {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "row_id")
 	private Long rowId;
 	
