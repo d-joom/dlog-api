@@ -11,5 +11,7 @@ public interface UserBlogRepository extends JpaRepository<UserBlog, Long>, JpaSp
 	
 	Optional<UserBlog> findByUuid(String uuid);
 	
+	Optional<UserBlog> findByUserId(String userId);
+	
 
 }

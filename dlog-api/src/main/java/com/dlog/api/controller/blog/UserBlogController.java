@@ -80,11 +80,18 @@ public class UserBlogController {
         
 	}
 	
-	@ApiOperation(value = "블로그 단일 조회", notes = "블로그 단일 조회")
-	@GetMapping("/blog/{uuid}")
-	public SingleResult<UserBlog> getUserByUuid(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
-			@PathVariable String uuid) {
-		return responseService.getSingleResult(userBlogRepository.findByUuid(uuid).orElse(null));
+//	@ApiOperation(value = "블로그 단일 조회", notes = "블로그 단일 조회")
+//	@GetMapping("/blog/{uuid}")
+//	public SingleResult<UserBlog> getUserByUuid(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+//			@PathVariable String uuid) {
+//		return responseService.getSingleResult(userBlogRepository.findByUuid(uuid).orElse(null));
+//	}
+	
+	@ApiOperation(value = "블로그 단일 조회(userId기준)", notes = "블로그 단일 조회(userId기준)")
+	@GetMapping("/blog/{userId}")
+	public SingleResult<UserBlog> getUserByUserId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String userId) {
+		return responseService.getSingleResult(userBlogRepository.findByUserId(userId).orElse(null));
 	}
 	
 	@ApiOperation(value = "블로그 생성", notes = "블로그 생성")

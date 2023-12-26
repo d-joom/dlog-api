@@ -76,7 +76,7 @@ public class UserPostServiceImpl implements UserPostService {
 				return "유효하지 않은 user post 입니다."; 
 			} else {
 				
-				if (!userPost.getRowId().equals(userInfo.getRowId())) {
+				if (!userPost.getCreatedBy().equals(userInfo.getEmail())) {
 					return "수정할 권한이 없습니다.";
 				}
 				
@@ -87,9 +87,10 @@ public class UserPostServiceImpl implements UserPostService {
 			}
 		} catch(Exception e) {
 			System.out.println("ERROR --- " + e.getMessage());
+			return e.getMessage();
 		}
 
-		return null;
+		return "200";
 	}
 	
 	@Override

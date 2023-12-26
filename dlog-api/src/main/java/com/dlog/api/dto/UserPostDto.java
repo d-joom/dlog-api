@@ -7,6 +7,10 @@ import lombok.Setter;
 @Setter
 public class UserPostDto {
 	
+	private String userBlogId;
+	
+	private String userBlogCategoryId;
+	
 	private String title;
 	
 	private String contents;

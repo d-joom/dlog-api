@@ -107,9 +107,19 @@ public class UserPostController {
 			@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token, 
 			@PathVariable String uuid,
 			@RequestBody UserPostDto dto) {
-		userPostService.modifyUserPost(token, uuid, dto);
-		return null;
+		System.out.println("title---" + dto.getTitle());
+		System.out.println("contents-----" + dto.getContents());
+		String result = userPostService.modifyUserPost(token, uuid, dto);
+		if(result.equals("200")) {
+			return responseService.getSuccessResult();
+		} else {
+			return responseService.getFailResult(result);
+		}
 	}
+	
+//	AKIAY2LPCNDDLCW6YMWY
+	
+//	UUEE9d3tLlawTd2QfdLoVGkWRb1d1pYkIkRK2qCE
 	
 	@ApiOperation(value = "블로그 삭제", notes = "블로그 삭제")
 	@DeleteMapping("/post/{uuid}")
