@@ -30,11 +30,14 @@ public class UserPost {
 	@Column(name = "uuid")
 	private String uuid;
 
-	@Column(name = "userBlogId")
+	@Column(name = "user_blog_id")
 	private String userBlogId;
 	
-	@Column(name = "userBlogCategoryId")
+	@Column(name = "user_blog_category_id")
 	private String userBlogCategoryId;
+	
+	@Column(name = "user_blog_category_name")
+	private String userBlogCategoryName;
 	
 	@Column(name = "title")
 	private String title;

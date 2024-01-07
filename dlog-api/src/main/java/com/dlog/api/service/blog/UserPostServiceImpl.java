@@ -41,7 +41,6 @@ public class UserPostServiceImpl implements UserPostService {
 		return result;
 	}
 	
-	
 	@Override
 	public String addUserPost(String token, UserPostDto dto) {
 		

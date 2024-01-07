@@ -43,6 +43,7 @@ public class UserPostController {
 			@RequestParam(required = false, defaultValue = "0") long rowId,
             @RequestParam(required = false) String uuid,
             @RequestParam(required = false) String userBlogId,
+            @RequestParam(required = false) String userBlogCategoryId,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String contents,
             @RequestParam(required = false) String createdBy,
@@ -59,6 +60,9 @@ public class UserPostController {
         }
         if (userBlogId != null) {
 			searchKeyword.put("userBlogId", userBlogId);
+        }
+        if (userBlogCategoryId != null) {
+			searchKeyword.put("userBlogCategoryId", userBlogCategoryId);
         }
         if (title != null) {
 			searchKeyword.put("title", title);

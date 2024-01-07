@@ -97,6 +97,13 @@ public class UserController {
 		return responseService.getSingleResult(userRepository.findByUuid(uuid).orElse(null));
 	}
 	
+	@ApiOperation(value = "회원 단일 조회(user id 기준)", notes = "회원 단일 조회(user id 기준)")
+	@GetMapping("/user/id")
+	public SingleResult<User> getUserByUserId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@RequestParam(required = false) String userId) {
+		return responseService.getSingleResult(userRepository.findByUserIdAndIsDeletedFalse(userId).orElse(null));
+	}
+	
 	@ApiOperation(value = "회원 생성", notes = "회원 생성")
 	@PostMapping("/user")
 	public CommonResult addUser(@RequestBody UserDto dto) {

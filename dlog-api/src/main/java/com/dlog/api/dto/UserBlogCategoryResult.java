@@ -13,6 +13,8 @@ import lombok.Setter;
 public class UserBlogCategoryResult {
 	
 	private long rowId;
+	
+	private String uuid;
 
     private String name;
 
@@ -22,6 +24,7 @@ public class UserBlogCategoryResult {
     
     public UserBlogCategoryResult(final UserBlogCategory userBlogCategory) {
         this.rowId = userBlogCategory.getRowId();
+        this.uuid = userBlogCategory.getUuid();
         this.name = userBlogCategory.getName();
         this.listOrder = userBlogCategory.getListOrder();
         this.children = userBlogCategory.getChildren().stream().map(UserBlogCategoryResult::new).collect(Collectors.toList());

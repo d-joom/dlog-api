@@ -5,10 +5,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dlog.api.dto.UserBlogCategoryDto;
 import com.dlog.api.dto.UserBlogCategoryResult;
+import com.dlog.api.dto.UserBlogTopCategoryDto;
 import com.dlog.api.dto.UserInfoDto;
 import com.dlog.api.model.blog.UserBlog;
 import com.dlog.api.model.blog.UserBlogCategory;
@@ -39,6 +42,14 @@ public class UserBlogCategoryServiceImpl implements UserBlogCategoryService {
 	public List<UserBlogCategoryResult> getUserBlogCategoryByUserBlogId(String userBlogId) {
 		final List<UserBlogCategory> all = userBlogCategoryQuerydslRepository.findAllWithQuerydslByUserBlogId(userBlogId);
 		return all.stream().map(UserBlogCategoryResult::new).collect(Collectors.toList());
+	}
+	
+	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserBlogId(String userBlogId) {
+		
+		Pageable pageable = PageRequest.of(0, 5); // 0은 페이지 번호, 5는 페이지 크기
+
+		List<UserBlogTopCategoryDto> result = userBlogCategoryRepository.getBlogCategoryWithPostCount(userBlogId, pageable);
+		return result;
 	}
 
 	@Override

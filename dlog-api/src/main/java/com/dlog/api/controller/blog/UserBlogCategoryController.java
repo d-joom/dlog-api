@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dlog.api.dto.UserBlogCategoryDto;
 import com.dlog.api.dto.UserBlogCategoryResult;
+import com.dlog.api.dto.UserBlogTopCategoryDto;
 import com.dlog.api.model.response.CommonResult;
 import com.dlog.api.model.response.ListResult;
-import com.dlog.api.repository.blog.UserBlogCategoryRepository;
 import com.dlog.api.service.ResponseService;
 import com.dlog.api.service.blog.UserBlogCategoryService;
 
@@ -44,6 +44,12 @@ public class UserBlogCategoryController {
 		return responseService.getListResult(userBlogCategoryService.getUserBlogCategoryByUserBlogId(userBlogId));
 	}
 	
+	@ApiOperation(value = "블로그 카테고리 순위 조회 (user_blog_id 기준)", notes = "블로그 카테고리 순위 조회 (user_blog_id 기준)")
+	@GetMapping("/blog/categories/top/{userBlogId}")
+	public ListResult<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserBlogId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String userBlogId) {
+		return responseService.getListResult(userBlogCategoryService.getUserBlogTopCategoryByUserBlogId(userBlogId));
+	}
 	
 	@ApiOperation(value = "블로그 카테고리 생성", notes = "블로그 카테고리 생성")
 	@PostMapping("/blog/category")

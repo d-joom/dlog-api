@@ -11,6 +11,8 @@ public class UserBlogCategoryDto {
 	
 	private String name;
 	
+	private String uuid;
+	
 	private String description;
 	
 	private Long depth;
