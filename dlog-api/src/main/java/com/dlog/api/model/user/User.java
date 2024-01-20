@@ -42,9 +42,6 @@ public class User {
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 	
-	@Column(name = "nick_name")
-	private String nickNmae;
-	
 	@Column(name = "picture")
 	private String picture;
 	

@@ -11,6 +11,7 @@ import com.dlog.api.dto.UserInfoDto;
 import com.dlog.api.dto.UserPostDto;
 import com.dlog.api.model.blog.UserPost;
 import com.dlog.api.model.response.ListResult;
+import com.dlog.api.model.response.SingleResult;
 import com.dlog.api.repository.blog.UserPostRepository;
 import com.dlog.api.specification.blog.UserPostSpecs;
 import com.dlog.api.utils.JwtTokenUtil;
@@ -42,7 +43,7 @@ public class UserPostServiceImpl implements UserPostService {
 	}
 	
 	@Override
-	public String addUserPost(String token, UserPostDto dto) {
+	public UserPost addUserPost(String token, UserPostDto dto) {
 		
 		try {
 			UserInfoDto userInfo = JwtTokenUtil.getUserInfo(token.replace("Bearer ", ""));
@@ -54,12 +55,11 @@ public class UserPostServiceImpl implements UserPostService {
 			userPost.setTemporary(dto.getIsTemporary());
 			userPost.setCreatedBy(userInfo.getEmail());
 			
-			userPostRepository.save(userPost);
+			userPost = userPostRepository.save(userPost);
 			
-			return "200";
+			return userPost;
 		} catch(Exception e) {
-			e.getStackTrace();
-			return e.getMessage();
+			return null;
 		}
 	}
 	

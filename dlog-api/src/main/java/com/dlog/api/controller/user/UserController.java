@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dlog.api.dto.ModifyUserDto;
 import com.dlog.api.dto.UserDto;
 import com.dlog.api.model.response.CommonResult;
 import com.dlog.api.model.response.ListResult;
@@ -120,9 +121,13 @@ public class UserController {
 	@PutMapping("/user/{uuid}")
 	public CommonResult modifyUser(
 			@PathVariable String uuid,
-			@RequestBody UserDto dto) {
-		userService.modifyUser(uuid, dto);
-		return null;
+			@RequestBody ModifyUserDto dto) {
+		String result = userService.modifyUser(uuid, dto);
+		if(result.equals("200")) {
+			return responseService.getSuccessResult();
+		} else {
+			return responseService.getFailResult(result);
+		}
 	}
 	
 	@ApiOperation(value = "회원 삭제", notes = "회원 삭제")

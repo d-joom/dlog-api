@@ -96,12 +96,12 @@ public class UserPostController {
 	public CommonResult addUserPost(
 			@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token, 
 			@RequestBody UserPostDto dto) {
-		String result = userPostService.addUserPost(token, dto);
+		UserPost result = userPostService.addUserPost(token, dto);
 		
-		if(result.equals("200")) {
-			return responseService.getSuccessResult();
+		if(result != null) {
+			return responseService.getSingleResult(result);
 		} else {
-			return responseService.getFailResult(result);
+			return responseService.getFailResult();
 		}
 	}
 	
@@ -111,8 +111,7 @@ public class UserPostController {
 			@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token, 
 			@PathVariable String uuid,
 			@RequestBody UserPostDto dto) {
-		System.out.println("title---" + dto.getTitle());
-		System.out.println("contents-----" + dto.getContents());
+		
 		String result = userPostService.modifyUserPost(token, uuid, dto);
 		if(result.equals("200")) {
 			return responseService.getSuccessResult();

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.dlog.api.dto.LoginDto;
+import com.dlog.api.dto.ModifyUserDto;
 import com.dlog.api.dto.UserDto;
 import com.dlog.api.dto.UserInfoDto;
 import com.dlog.api.model.response.ListResult;
@@ -68,7 +69,6 @@ public class UserServiceImpl implements UserService {
 			user.setUserId(dto.getUserId());
 			user.setPassword(dto.getPassword());
 			user.setName(dto.getName());
-			user.setNickNmae(dto.getNickNmae());
 			user.setEmail(dto.getEmail());
 			user.setMobile(dto.getMobile());
 			user.setGender(dto.getGender());
@@ -83,13 +83,18 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public String modifyUser(String uuid, UserDto dto) {
+	public String modifyUser(String uuid, ModifyUserDto dto) {
 		
 		try {
 			User user = userRepository.findByUuid(uuid).orElse(null);
 			
+
+			System.out.println(dto.getName());
+			System.out.println(dto.getDescription());
+			
+			
 			if(user == null) {
-				return "유효하지 않은 user rowId 입니다."; 
+				return "유효하지 않은 user uuid 입니다."; 
 			} else {
 				User result = modelMapper.map(dto, User.class);
 				modelMapper.map(result, user);
@@ -97,10 +102,10 @@ public class UserServiceImpl implements UserService {
 				userRepository.save(user);
 			}
 		} catch(Exception e) {
-			System.out.println("ERROR --- " + e.getMessage());
+			return e.getMessage();
 		}
 
-		return null;
+		return "200";
 	}
 	
 	@Override

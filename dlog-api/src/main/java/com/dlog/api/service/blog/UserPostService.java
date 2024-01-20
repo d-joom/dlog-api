@@ -10,7 +10,7 @@ public interface UserPostService {
 
 	public ListResult<UserPost> getUserPosts(String token, Map<String, Object> keyword);
 	
-	public String addUserPost(String token, UserPostDto dto);
+	public UserPost addUserPost(String token, UserPostDto dto);
 	
 	public String modifyUserPost(String token, String uuid, UserPostDto dto);
 	
