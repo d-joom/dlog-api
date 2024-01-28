@@ -32,7 +32,7 @@ public class UserBlogCategoryQuerydslRepository {
 	                .fetch();
 	    }
 	    
-	    public List<UserBlogCategory> findAllWithQuerydslByUserBlogId(String userBlogId) {
+	    public List<UserBlogCategory> findAllWithQuerydslByUserId(String userId) {
 
 	        return query.selectFrom(parent)
 	                .distinct()
@@ -40,7 +40,7 @@ public class UserBlogCategoryQuerydslRepository {
 	                .fetchJoin()
 	                .where(
 	                        parent.parent.isNull(),
-	                        parent.userBlogId.eq(userBlogId)
+	                        parent.createdBy.eq(userId)
 	                )
 	                .orderBy(parent.listOrder.asc(), child.listOrder.asc())
 	                .fetch();

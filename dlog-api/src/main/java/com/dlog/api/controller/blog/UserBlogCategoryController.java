@@ -37,18 +37,18 @@ public class UserBlogCategoryController {
 		return responseService.getListResult(userBlogCategoryService.getUserBlogCategories());
 	}
 	
-	@ApiOperation(value = "블로그 카테고리 전체 조회 (user_blog_id 기준)", notes = "블로그 카테고리 전체 조회 (user_blog_id 기준)")
-	@GetMapping("/blog/categories/{userBlogId}")
-	public ListResult<UserBlogCategoryResult> getUserBlogCategoryByUserBlogId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
-			@PathVariable String userBlogId) {
-		return responseService.getListResult(userBlogCategoryService.getUserBlogCategoryByUserBlogId(userBlogId));
+	@ApiOperation(value = "블로그 카테고리 전체 조회 (user_id 기준)", notes = "블로그 카테고리 전체 조회 (user_id 기준)")
+	@GetMapping("/blog/categories/{userId}")
+	public ListResult<UserBlogCategoryResult> getUserBlogCategoryByUserId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String userId) {
+		return responseService.getListResult(userBlogCategoryService.getUserBlogCategoryByUserId(userId));
 	}
 	
-	@ApiOperation(value = "블로그 카테고리 순위 조회 (user_blog_id 기준)", notes = "블로그 카테고리 순위 조회 (user_blog_id 기준)")
-	@GetMapping("/blog/categories/top/{userBlogId}")
-	public ListResult<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserBlogId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
-			@PathVariable String userBlogId) {
-		return responseService.getListResult(userBlogCategoryService.getUserBlogTopCategoryByUserBlogId(userBlogId));
+	@ApiOperation(value = "블로그 카테고리 순위 조회 (user_id 기준)", notes = "블로그 카테고리 순위 조회 (user_id 기준)")
+	@GetMapping("/blog/categories/top/{userId}")
+	public ListResult<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserId(@RequestHeader(required = true, defaultValue = "Bearer TOKEN_VALUE") String token,
+			@PathVariable String userId) {
+		return responseService.getListResult(userBlogCategoryService.getUserBlogTopCategoryByUserId(userId));
 	}
 	
 	@ApiOperation(value = "블로그 카테고리 생성", notes = "블로그 카테고리 생성")

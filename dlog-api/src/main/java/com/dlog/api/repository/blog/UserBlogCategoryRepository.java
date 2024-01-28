@@ -22,9 +22,9 @@ public interface UserBlogCategoryRepository
 	@Query("SELECT NEW com.dlog.api.dto.UserBlogTopCategoryDto(c.rowId, c.uuid, c.name, COUNT(p.uuid)) " +
 		       "FROM UserBlogCategory c " +
 		       "LEFT JOIN UserPost p ON c.uuid = p.userBlogCategoryId AND p.isDeleted = false " +
-		       "WHERE c.userBlogId = :userBlogId " +
+		       "WHERE c.userId = :userId " +
 		       "GROUP BY c.uuid, c.name, c.rowId " +
 		       "ORDER BY COUNT(p.uuid) DESC")
-	List<UserBlogTopCategoryDto> getBlogCategoryWithPostCount(@Param("userBlogId") String userBlogId, Pageable pageable);
+	List<UserBlogTopCategoryDto> getBlogCategoryWithPostCount(@Param("userBlogId") String userId, Pageable pageable);
 	
 }

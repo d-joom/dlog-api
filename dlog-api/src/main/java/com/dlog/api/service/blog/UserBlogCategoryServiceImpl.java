@@ -39,16 +39,16 @@ public class UserBlogCategoryServiceImpl implements UserBlogCategoryService {
 	}
 	
 	@Override
-	public List<UserBlogCategoryResult> getUserBlogCategoryByUserBlogId(String userBlogId) {
-		final List<UserBlogCategory> all = userBlogCategoryQuerydslRepository.findAllWithQuerydslByUserBlogId(userBlogId);
+	public List<UserBlogCategoryResult> getUserBlogCategoryByUserId(String userId) {
+		final List<UserBlogCategory> all = userBlogCategoryQuerydslRepository.findAllWithQuerydslByUserId(userId);
 		return all.stream().map(UserBlogCategoryResult::new).collect(Collectors.toList());
 	}
 	
-	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserBlogId(String userBlogId) {
+	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserId(String userId) {
 		
 		Pageable pageable = PageRequest.of(0, 5); // 0은 페이지 번호, 5는 페이지 크기
 
-		List<UserBlogTopCategoryDto> result = userBlogCategoryRepository.getBlogCategoryWithPostCount(userBlogId, pageable);
+		List<UserBlogTopCategoryDto> result = userBlogCategoryRepository.getBlogCategoryWithPostCount(userId, pageable);
 		return result;
 	}
 

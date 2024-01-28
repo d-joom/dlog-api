@@ -10,9 +10,9 @@ public interface UserBlogCategoryService {
 
 	public List<UserBlogCategoryResult> getUserBlogCategories();
 	
-	public List<UserBlogCategoryResult> getUserBlogCategoryByUserBlogId(String userBlogId);
+	public List<UserBlogCategoryResult> getUserBlogCategoryByUserId(String userBlogId);
 	
-	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserBlogId(String userBlogId);
+	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserId(String userId);
 	
 	public String addUserBlogCategory(String token, UserBlogCategoryDto dto);
 	
