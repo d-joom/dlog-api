@@ -5,6 +5,7 @@ import java.util.List;
 import com.dlog.api.dto.UserBlogCategoryDto;
 import com.dlog.api.dto.UserBlogCategoryResult;
 import com.dlog.api.dto.UserBlogTopCategoryDto;
+import com.dlog.api.model.blog.UserBlogCategory;
 
 public interface UserBlogCategoryService {
 

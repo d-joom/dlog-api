@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dlog.api.dto.UserBlogCategoryDto;
 import com.dlog.api.dto.UserBlogCategoryResult;
 import com.dlog.api.dto.UserBlogTopCategoryDto;
+import com.dlog.api.model.blog.UserBlogCategory;
 import com.dlog.api.model.response.CommonResult;
 import com.dlog.api.model.response.ListResult;
 import com.dlog.api.service.ResponseService;

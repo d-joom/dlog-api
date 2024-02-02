@@ -15,8 +15,10 @@ import com.dlog.api.dto.UserBlogTopCategoryDto;
 import com.dlog.api.dto.UserInfoDto;
 import com.dlog.api.model.blog.UserBlog;
 import com.dlog.api.model.blog.UserBlogCategory;
+import com.dlog.api.model.user.User;
 import com.dlog.api.repository.blog.UserBlogCategoryQuerydslRepository;
 import com.dlog.api.repository.blog.UserBlogCategoryRepository;
+import com.dlog.api.repository.user.UserRepository;
 import com.dlog.api.utils.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class UserBlogCategoryServiceImpl implements UserBlogCategoryService {
 
 	private final UserBlogCategoryRepository userBlogCategoryRepository;
+	
+	private final UserRepository userRepository;
 	
 	private final UserBlogCategoryQuerydslRepository userBlogCategoryQuerydslRepository;
 
@@ -40,8 +44,13 @@ public class UserBlogCategoryServiceImpl implements UserBlogCategoryService {
 	
 	@Override
 	public List<UserBlogCategoryResult> getUserBlogCategoryByUserId(String userId) {
-		final List<UserBlogCategory> all = userBlogCategoryQuerydslRepository.findAllWithQuerydslByUserId(userId);
+		User user = userRepository.findByUserIdAndIsDeletedFalse(userId).orElse(null);
+		final List<UserBlogCategory> all = userBlogCategoryQuerydslRepository.findAllWithQuerydslByCreatedBy(user.getEmail());
 		return all.stream().map(UserBlogCategoryResult::new).collect(Collectors.toList());
+//		User user = userRepository.findByUserIdAndIsDeletedFalse(userId).orElse(null);
+//		List<UserBlogCategory> all = userBlogCategoryRepository.findByCreatedByAndDepthAndIsDeletedFalse(user.getEmail(), Long.valueOf(1));
+		
+//		return all;
 	}
 	
 	public List<UserBlogTopCategoryDto> getUserBlogTopCategoryByUserId(String userId) {
@@ -56,22 +65,25 @@ public class UserBlogCategoryServiceImpl implements UserBlogCategoryService {
 	public String addUserBlogCategory(String token, UserBlogCategoryDto dto) {
 
 		try {
-			 final UserBlogCategory parent = userBlogCategoryRepository.findByRowId(dto.getParentId())
-		                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 Menu 입니다."));
+			
+
 			 
 			UserInfoDto userInfo = JwtTokenUtil.getUserInfo(token.replace("Bearer ", ""));
-
+			
 			UserBlogCategory userBlogCategory = new UserBlogCategory();
+			
+			if(dto.getParentId() != null) {
+				final UserBlogCategory parent = userBlogCategoryRepository.findByRowId(dto.getParentId())
+		                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 Menu 입니다."));
+				
+				userBlogCategory.updateParent(parent);
+			}
+			
 			userBlogCategory.setUuid(UUID.randomUUID().toString());
-			userBlogCategory.setUserBlogId(dto.getUserBlogId());
 			userBlogCategory.setName(dto.getName());
 			userBlogCategory.setDescription(dto.getDescription());
 			userBlogCategory.setDepth(dto.getDepth());
 			userBlogCategory.setCreatedBy(userInfo.getEmail());
-
-			if (parent != null) {
-				userBlogCategory.updateParent(parent);
-			}
 
 			userBlogCategoryRepository.save(userBlogCategory);
 

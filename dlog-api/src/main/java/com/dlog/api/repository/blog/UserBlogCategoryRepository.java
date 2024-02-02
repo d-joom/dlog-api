@@ -19,6 +19,8 @@ public interface UserBlogCategoryRepository
 	
 	Optional<UserBlogCategory> findByUuid(String uuid);
 	
+	List<UserBlogCategory> findByCreatedByAndDepthAndIsDeletedFalse(String createdBy, Long depth);
+	
 	@Query("SELECT NEW com.dlog.api.dto.UserBlogTopCategoryDto(c.rowId, c.uuid, c.name, COUNT(p.uuid)) " +
 		       "FROM UserBlogCategory c " +
 		       "LEFT JOIN UserPost p ON c.uuid = p.userBlogCategoryId AND p.isDeleted = false " +
