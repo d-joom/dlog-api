@@ -50,5 +50,8 @@
 - 자기소개, 경력기술서 및 프로젝트 포트폴리오 페이지</br></br>
 ![03_career](https://github.com/d-joom/dlog-api/assets/106900072/56f28198-76bb-4b81-9584-8ac8982d7b2a)</br></br>
 
+## Database (MySQL)
+![db](https://github.com/d-joom/dlog-api/assets/106900072/206c85b0-1ec4-418b-a258-9b376db30774)
+
 ## About me</br>
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=d-joom&layout=compact)](https://github.com/d-joom/github-readme-stats)
